@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kubeark-demo-upgrade.fullname" . }}
+  labels:
+    {{- include "kubeark-demo-upgrade.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "kubeark-demo-upgrade.selectorLabels" . | nindent 4 }}
